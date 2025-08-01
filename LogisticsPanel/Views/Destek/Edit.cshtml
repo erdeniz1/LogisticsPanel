@@ -1,0 +1,42 @@
+﻿@model LogisticsPanel.Models.Destek
+
+@{
+    ViewData["Title"] = "Destek Talebi Düzenle";
+}
+
+<h2>Destek Talebi Düzenle</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group">
+        <label asp-for="Konu"></label>
+        <input asp-for="Konu" class="form-control" />
+        <span asp-validation-for="Konu" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Mesaj"></label>
+        <textarea asp-for="Mesaj" class="form-control" rows="5"></textarea>
+        <span asp-validation-for="Mesaj" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Durum"></label>
+        <select asp-for="Durum" class="form-control">
+            <option value="Beklemede" selected="@(Model.Durum == "Beklemede")">Beklemede</option>
+            <option value="Yanıtlandı" selected="@(Model.Durum == "Yanıtlandı")">Yanıtlandı</option>
+        </select>
+        <span asp-validation-for="Durum" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="MusteriId">Müşteri</label>
+        <select asp-for="MusteriId" class="form-control" asp-items="ViewBag.Musteriler"></select>
+    </div>
+    <button type="submit" class="btn btn-primary">Kaydet</button>
+    <a asp-action="Index" class="btn btn-secondary">İptal</a>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

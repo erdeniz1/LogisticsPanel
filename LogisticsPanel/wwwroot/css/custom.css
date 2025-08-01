@@ -1,0 +1,27 @@
+﻿:root {
+    --primary-color: #005792;
+    --secondary-color: #00a8cc;
+    --accent-color: #f4d35e;
+    --danger-color: #ee6c4d;
+    --success-color: #4CAF50;
+    --gray-light: #f8f9fa;
+    --gray-dark: #343a40;
+}
+
+body {
+    background-color: var(--gray-light);
+}
+
+.navbar {
+    background-color: var(--primary-color);
+}
+
+.sidebar {
+    background-color: var(--gray-dark);
+    color: white;
+}
+.nav-link.active {
+    background-color: var(--primary-color);
+    color: #fff !important;
+    border-radius: 5px;
+}

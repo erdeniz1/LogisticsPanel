@@ -1,0 +1,55 @@
+﻿@model List<LogisticsPanel.Models.Gonderi>
+
+@{
+    ViewData["Title"] = "Gönderiler";
+
+    // Durumlar array değilse null olabilir, null kontrolü yapalım:
+    var durumlar = ViewBag.Durumlar as IEnumerable<string> ?? new List<string> { "Hazırlanıyor", "Yolda", "Teslim Edildi", "İptal" };
+
+    var durumFilter = ViewBag.DurumFilter as string ?? "";
+}
+
+<h2>Gönderiler</h2>
+
+<form method="get" class="form-inline mb-3">
+    <select name="durumFilter" class="form-control mr-2">
+        <option value="">Tüm Durumlar</option>
+        @foreach (var d in durumlar)
+        {
+            if (d == durumFilter)
+            {
+                <option value="@d" selected="selected">@d</option>
+            }
+            else
+            {
+                <option value="@d">@d</option>
+            }
+        }
+    </select>
+    <button type="submit" class="btn btn-primary">Filtrele</button>
+    <a href="/Gonderiler/Create" class="btn btn-success ml-3">Yeni Gönderi Ekle</a>
+</form>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Gönderi No</th>
+            <th>Gönderen</th>
+            <th>Alıcı Adresi</th>
+            <th>Durum</th>
+            <th>Tahmini Teslim Tarihi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var g in Model)
+        {
+            <tr>
+                <td>@g.GonderiNo</td>
+                <td>@g.GonderenMusteri?.Ad</td>
+                <td>@g.AliciAdresi</td>
+                <td>@g.Durum</td>
+                <td>@g.TahminiTeslimTarihi.ToString("dd.MM.yyyy")</td>
+            </tr>
+        }
+    </tbody>
+</table>

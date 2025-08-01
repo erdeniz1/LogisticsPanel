@@ -1,0 +1,45 @@
+﻿@model LogisticsPanel.Models.Gonderi
+
+@{
+    ViewData["Title"] = "Yeni Gönderi";
+    var musteriler = ViewBag.Musteriler as List<LogisticsPanel.Models.Musteri>;
+    var durumlar = ViewBag.Durumlar as string[];
+}
+
+<h2>Yeni Gönderi Ekle</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label for="GonderenMusteriId">Gönderen Müşteri</label>
+        <select asp-for="MusteriId" class="form-control" required>
+            <option value="">Seçiniz</option>
+            @foreach (var m in musteriler)
+            {
+                <option value="@m.Id">@m.Ad</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="AliciAdresi"></label>
+        <input asp-for="AliciAdresi" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Durum"></label>
+        <select asp-for="Durum" class="form-control" required>
+            @foreach (var d in durumlar)
+            {
+                <option value="@d">@d</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="TahminiTeslimTarihi"></label>
+        <input asp-for="TahminiTeslimTarihi" type="date" class="form-control" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Kaydet</button>
+    <a href="/Gonderiler" class="btn btn-secondary">İptal</a>
+</form>

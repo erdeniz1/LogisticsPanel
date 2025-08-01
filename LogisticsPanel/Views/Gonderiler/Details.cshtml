@@ -1,0 +1,28 @@
+﻿@model LogisticsPanel.Models.Gonderi
+
+@{
+    ViewData["Title"] = "Gönderi Detayları";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">Gönderi No</dt>
+        <dd class="col-sm-10">@Model.GonderiNo</dd>
+
+        <dt class="col-sm-2">Gönderen Müşteri</dt>
+        <dd class="col-sm-10">@Model.GonderenMusteri?.Ad</dd>
+
+        <dt class="col-sm-2">Alıcı Adresi</dt>
+        <dd class="col-sm-10">@Model.AliciAdresi</dd>
+
+        <dt class="col-sm-2">Durum</dt>
+        <dd class="col-sm-10">@Model.Durum</dd>
+
+        <dt class="col-sm-2">Tahmini Teslim Tarihi</dt>
+        <dd class="col-sm-10">@Model.TahminiTeslimTarihi.ToString("dd.MM.yyyy")</dd>
+    </dl>
+</div>
+
+<a asp-action="Index" class="btn btn-secondary">Geri</a>

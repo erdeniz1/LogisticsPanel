@@ -1,0 +1,49 @@
+﻿@model LogisticsPanel.Models.Gonderi
+
+@{
+    ViewData["Title"] = "Gönderi Düzenle";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group">
+        <label asp-for="MusteriId" class="control-label">Gönderen Müşteri</label>
+        <select asp-for="MusteriId" class="form-control" asp-items="ViewBag.Musteriler"></select>
+        <span asp-validation-for="MusteriId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="AliciAdresi" class="control-label"></label>
+        <input asp-for="AliciAdresi" class="form-control" />
+        <span asp-validation-for="AliciAdresi" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Durum" class="control-label"></label>
+        <select asp-for="Durum" class="form-control">
+            <option value="Hazırlanıyor">Hazırlanıyor</option>
+            <option value="Yolda">Yolda</option>
+            <option value="Teslim Edildi">Teslim Edildi</option>
+            <option value="İptal">İptal</option>
+        </select>
+        <span asp-validation-for="Durum" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="TahminiTeslimTarihi" class="control-label"></label>
+        <input asp-for="TahminiTeslimTarihi" class="form-control" type="date" />
+        <span asp-validation-for="TahminiTeslimTarihi" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Kaydet</button>
+    <a asp-action="Index" class="btn btn-secondary">İptal</a>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

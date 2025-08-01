@@ -1,0 +1,48 @@
+﻿@model LogisticsPanel.Models.Arac
+
+@{
+    ViewData["Title"] = "Yeni Araç Ekle";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Create" method="post">
+    <div class="mb-3">
+        <label asp-for="Plaka" class="form-label"></label>
+        <input asp-for="Plaka" class="form-control" />
+        <span asp-validation-for="Plaka" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="SurucuAdi" class="form-label"></label>
+        <input asp-for="SurucuAdi" class="form-control" />
+        <span asp-validation-for="SurucuAdi" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="KapasiteKg" class="form-label"></label>
+        <input asp-for="KapasiteKg" class="form-control" type="number" min="0" />
+        <span asp-validation-for="KapasiteKg" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Durum" class="form-label"></label>
+        <select asp-for="Durum" class="form-select">
+            <option value="Boş">Boş</option>
+            <option value="Yolda">Yolda</option>
+            <option value="Bakımda">Bakımda</option>
+        </select>
+        <span asp-validation-for="Durum" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="SonServisTarihi" class="form-label"></label>
+        <input asp-for="SonServisTarihi" class="form-control" type="date" />
+        <span asp-validation-for="SonServisTarihi" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Kaydet</button>
+    <a asp-action="Index" class="btn btn-secondary">İptal</a>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

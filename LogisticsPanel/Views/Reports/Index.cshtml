@@ -1,0 +1,85 @@
+﻿@model LogisticsPanel.ViewModels.ReportViewModel
+
+@{
+    ViewData["Title"] = "Raporlar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var gonderiGunluk = Model.GunlukGonderiler ?? new List<LogisticsPanel.ViewModels.GonderiGunlukDto>();
+    var enCokTeslim = Model.EnCokTeslimArac;
+    double basariOrani = Model.BasariOrani;
+}
+
+<h2>📊 Raporlar</h2>
+
+<div class="mb-4">
+    <a asp-action="ExportPdf" class="btn btn-danger">📄 PDF Olarak İndir</a>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card border-info">
+            <div class="card-header bg-info text-white">📈 Günlük Gönderi Sayısı</div>
+            <div class="card-body">
+                <canvas id="dailyChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card text-white bg-success mb-3">
+            <div class="card-header">🥇 En Çok Teslimat Yapan Araç</div>
+            <div class="card-body">
+                @if (enCokTeslim != null)
+                {
+                    <h5 class="card-title">@enCokTeslim.Arac</h5>
+                    <p class="card-text">@enCokTeslim.TeslimatSayisi teslimat</p>
+                }
+                else
+                {
+                    <p class="text-white">Veri yok</p>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card text-white bg-warning mb-3">
+            <div class="card-header">🎯 Teslimat Başarı Oranı</div>
+            <div class="card-body">
+                <h5 class="card-title">@basariOrani.ToString("N2")%</h5>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const labels = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(gonderiGunluk.Select(x => x.Tarih)));
+    const values = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(gonderiGunluk.Select(x => x.Sayisi)));
+
+    const ctx = document.getElementById('dailyChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Gönderi Sayısı',
+                data: values,
+                backgroundColor: 'rgba(54, 162, 235, 0.3)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                fill: true,
+                tension: 0.2
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    precision: 0
+                }
+            }
+        }
+    });
+</script>

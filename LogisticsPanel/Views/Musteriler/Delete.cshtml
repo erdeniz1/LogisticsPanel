@@ -1,0 +1,22 @@
+﻿@model LogisticsPanel.Models.Musteri
+
+@{
+    ViewData["Title"] = "Müşteri Sil";
+}
+
+<h1>Müşteri Sil</h1>
+
+<h3>Bu müşteriyi silmek istediğinize emin misiniz?</h3>
+
+<div>
+    <h4>@Model.Ad @Model.Soyad</h4>
+    <p><strong>Firma:</strong> @Model.Firma</p>
+    <p><strong>Email:</strong> @Model.Email</p>
+    <p><strong>Telefon:</strong> @Model.Telefon</p>
+</div>
+
+<form asp-action="DeleteConfirmed" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Sil</button>
+    <a asp-action="Index" class="btn btn-secondary">İptal</a>
+</form>

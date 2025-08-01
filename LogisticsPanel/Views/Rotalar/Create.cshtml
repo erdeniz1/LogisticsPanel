@@ -1,0 +1,47 @@
+﻿@model LogisticsPanel.Models.Rota
+
+@{
+    ViewData["Title"] = "Yeni Rota Ekle";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label for="BaslangicNoktasi">Başlangıç Noktası</label>
+        <input asp-for="BaslangicNoktasi" class="form-control" />
+        <span asp-validation-for="BaslangicNoktasi" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="BitisNoktasi">Bitiş Noktası</label>
+        <input asp-for="BitisNoktasi" class="form-control" />
+        <span asp-validation-for="BitisNoktasi" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="MesafeKm">Mesafe (km)</label>
+        <input asp-for="MesafeKm" class="form-control" type="number" step="0.01" />
+        <span asp-validation-for="MesafeKm" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="TahminiSure">Tahmini Süre (Saat:Dakika)</label>
+        <input asp-for="TahminiSure" class="form-control" placeholder="hh:mm:ss" />
+        <span asp-validation-for="TahminiSure" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="AracId">Atanmış Araç</label>
+        <select asp-for="AracId" class="form-control" asp-items="ViewBag.Araclar">
+            <option value="">Seçiniz</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-success">Kaydet</button>
+    <a asp-action="Index" class="btn btn-secondary">İptal</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

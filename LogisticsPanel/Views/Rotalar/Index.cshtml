@@ -1,0 +1,39 @@
+﻿@model List<LogisticsPanel.Models.Rota>
+
+@{
+    ViewData["Title"] = "Rotalar";
+}
+
+<h2>Rotalar</h2>
+
+<a href="@Url.Action("Create")" class="btn btn-primary mb-3">Yeni Rota Ekle</a>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Başlangıç Noktası</th>
+            <th>Bitiş Noktası</th>
+            <th>Mesafe (km)</th>
+            <th>Tahmini Süre</th>
+            <th>Atanmış Araç</th>
+            <th>İşlemler</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var rota in Model)
+        {
+            <tr>
+                <td>@rota.BaslangicNoktasi</td>
+                <td>@rota.BitisNoktasi</td>
+                <td>@rota.MesafeKm</td>
+                <td>@rota.TahminiSure.ToString(@"hh\:mm")</td>
+                <td>@rota.Arac?.Plaka</td>
+                <td>
+                    <a href="@Url.Action("Edit", new { id = rota.Id })" class="btn btn-sm btn-warning">Düzenle</a>
+                    <a href="@Url.Action("Delete", new { id = rota.Id })" class="btn btn-sm btn-danger">Sil</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
